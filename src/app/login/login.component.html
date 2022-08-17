@@ -1,43 +1,35 @@
-<div fxLayout="row" fxLayoutAlign="center center">
+<div fxLayout="row" fxLayoutAlign="center center" style="margin-top: 40px">
   <mat-card class="example-card">
     <mat-card-header>
-      <div mat-card-avatar class="example-header-image"></div>
-      <mat-card-title>Shiba Inu</mat-card-title>
-      <mat-card-subtitle>Dog Breed</mat-card-subtitle>
     </mat-card-header>
-    <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
+    <div fxLayout="row" fxLayoutAlign="center center" >
+    <img mat-card-image src="./assets/pngwing.com.png" alt="Photo of a Shiba Inu">
+    </div>
     <mat-card-content>
       <form [formGroup]="formGroup" >
-        <mat-form-field class="example-full-width" appearance="fill">
+        <mat-form-field class="full-width" appearance="fill">
           <mat-label>Email</mat-label>
           <input type="email" matInput formControlName="email" [errorStateMatcher]="matcher"
                  placeholder="Ex. pat@example.com">
-          <mat-hint>Errors appear instantly!</mat-hint>
           <mat-error *ngIf="formGroup.get('email').hasError('email') && !formGroup.get('email').hasError('required')">
-            Please enter a valid email address
+            Por favor ingrese un email valido
           </mat-error>
           <mat-error *ngIf="formGroup.get('email').hasError('required')">
-            Email is <strong>required</strong>
+            El email es <strong>requerido</strong>
           </mat-error>
         </mat-form-field>
 
-
-        <mat-form-field class="example-full-width" appearance="fill">
+        <mat-form-field class="full-width" appearance="fill">
           <mat-label>Password</mat-label>
-          <input type="email" matInput formControlName="password" [errorStateMatcher]="matcher"
-                 placeholder="Ex. pat@example.com">
-          <mat-hint>Errors appear instantly!</mat-hint>
-          <mat-error *ngIf="formGroup.get('email').hasError('required')">
-            Please enter a valid email address
-          </mat-error>
+          <input type="password" matInput formControlName="password" [errorStateMatcher]="matcher">
           <mat-error *ngIf="formGroup.get('password').hasError('required')">
-            Password is <strong>required</strong>
+            El campo Password es <strong>requerido</strong>
           </mat-error>
         </mat-form-field>
       </form>
     </mat-card-content>
-    <mat-card-actions>
-      <button (click)="redirecionarMenu()" mat-raised-button color="warn">Enviar</button>
+    <mat-card-actions class="alineacion-centro">
+      <button style="width: 50%" (click)="redirecionarMenu()" mat-raised-button color="warn">Ingresar</button>
     </mat-card-actions>
   </mat-card>
 </div>
