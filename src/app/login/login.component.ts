@@ -3,6 +3,7 @@ import {FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validat
 import {ErrorStateMatcher} from "@angular/material/core";
 import {Router} from "@angular/router";
 import {DataLoginService} from "../services/data-login.service";
+import {AuthService} from "../services/auth.service";
 
 @Component({
   selector: 'app-login',
@@ -16,7 +17,8 @@ export class LoginComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder,
               private route: Router,
-              private dataLoginService: DataLoginService) {
+              private dataLoginService: DataLoginService,
+              private authService: AuthService) {
 
   }
 
@@ -29,7 +31,9 @@ export class LoginComponent implements OnInit {
 
   public redirecionarMenu(): void {
     this.dataLoginService.enviarDataUsuario(this.formGroup.value);
-    this.route.navigate(['/menu']);
+    const loginexitoso = this.authService.login(this.formGroup.value);
+    if (loginexitoso)
+      this.route.navigate(['/menu']);
   }
 
 }
