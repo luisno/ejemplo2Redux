@@ -17,6 +17,9 @@ import {MatSidenavModule} from "@angular/material/sidenav";
 import {MatListModule} from "@angular/material/list";
 import {MatIconModule} from "@angular/material/icon";
 import { RegistrarLibroComponent } from './menu/opciones/registrar-libro/registrar-libro.component';
+import {StoreModule} from "@ngrx/store";
+import {reducers} from "./redux/app.reducer";
+import {StoreDevtoolsModule} from "@ngrx/store-devtools";
 
 @NgModule({
   declarations: [
@@ -39,7 +42,11 @@ import { RegistrarLibroComponent } from './menu/opciones/registrar-libro/registr
     MatInputModule,
     MatSidenavModule,
     MatListModule,
-    MatIconModule
+    MatIconModule,
+    StoreModule.forRoot(reducers),
+    StoreDevtoolsModule.instrument({
+      maxAge: 50
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent]

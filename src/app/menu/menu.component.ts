@@ -1,6 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {DataLoginService} from "../services/data-login.service";
 import {Router} from "@angular/router";
+import {Store} from "@ngrx/store";
+import * as fromRoot from "../redux/app.reducer";
+import {Subscription} from "rxjs";
 
 export interface Section {
   name: string;
@@ -13,8 +16,8 @@ export interface Section {
   templateUrl: './menu.component.html',
   styleUrls: ['./menu.component.css']
 })
-export class MenuComponent implements OnInit {
-
+export class MenuComponent implements OnInit, OnDestroy {
+  public usuarioSuscripcion: Subscription;
   public menus: Section[] = [
 
     {
@@ -32,9 +35,17 @@ export class MenuComponent implements OnInit {
   dataUsuario: any;
 
   constructor(private dataLoginService: DataLoginService,
-              private router: Router) { }
+              private router: Router,
+              private store: Store<fromRoot.State>) { }
+
+  ngOnDestroy(): void {
+        this.usuarioSuscripcion.unsubscribe();
+    }
 
   ngOnInit(): void {
+   this.usuarioSuscripcion = this.store.select(fromRoot.getUsuario).subscribe(response => {
+      console.log(response);
+    })
     this.dataUsuario = this.dataLoginService.dataUsuario;
   }
 

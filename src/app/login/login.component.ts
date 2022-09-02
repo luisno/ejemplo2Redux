@@ -4,6 +4,9 @@ import {ErrorStateMatcher} from "@angular/material/core";
 import {Router} from "@angular/router";
 import {DataLoginService} from "../services/data-login.service";
 import {AuthService} from "../services/auth.service";
+import {Store} from "@ngrx/store";
+import * as fromRoot from '../redux/app.reducer';
+import {CrearUsuario} from "../redux/usuario.actions";
 
 @Component({
   selector: 'app-login',
@@ -18,7 +21,9 @@ export class LoginComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
               private route: Router,
               private dataLoginService: DataLoginService,
-              private authService: AuthService) {
+              private authService: AuthService,
+              private store: Store<fromRoot.State>
+              ) {
 
   }
 
@@ -32,8 +37,10 @@ export class LoginComponent implements OnInit {
   public redirecionarMenu(): void {
     this.dataLoginService.enviarDataUsuario(this.formGroup.value);
     const loginexitoso = this.authService.login(this.formGroup.value);
-    if (loginexitoso)
+    if (loginexitoso) {
+      this.store.dispatch(new CrearUsuario(this.formGroup.value));
       this.route.navigate(['/menu']);
+    }
   }
 
 }
